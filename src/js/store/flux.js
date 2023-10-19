@@ -1,20 +1,33 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			characters: [],
+			currentItem: {},
+			people: [],
 			planets: [],
 			vehicles: [],
 			favorites: [],
 			apiUrl: "https://www.swapi.tech/api/",
 		},
 		actions: {
-			getCharacters: () => {
+			getDetails: async (type, data) => {
+				const url = getStore().apiUrl + type;
+
+				data.results.forEach(async (element, idx) => {
+					const response = await fetch(url + '/' + element.uid);
+					const item = await response.json();
+					data.results[idx].details = item.result;
+				});
+				console.log(type, data);
+				setStore({ [type]: data.results })
+			},
+			getPeople: () => {
 				const url = getStore().apiUrl + "people";
 				const request = getActions().apiCall(url);
 				request.then(data => {
-					console.log("inside getCharacters", data);
+					// console.log("inside getPlanets", data);
 					if (data.message == "ok") {
-						setStore({ characters: data.results })
+						getActions().getDetails('people', data);
+						// setStore({ planets: data.results })
 					}
 				})
 			},
@@ -22,9 +35,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const url = getStore().apiUrl + "planets";
 				const request = getActions().apiCall(url);
 				request.then(data => {
-					console.log("inside getPlanets", data);
+					// console.log("inside getPlanets", data);
 					if (data.message == "ok") {
-						setStore({ planets: data.results })
+						getActions().getDetails('planets', data);
+						// setStore({ planets: data.results })
 					}
 				})
 			},
@@ -32,30 +46,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const url = getStore().apiUrl + "vehicles";
 				const request = getActions().apiCall(url);
 				request.then(data => {
-					console.log("inside getVehicles", data);
+					// console.log("inside getVehicles", data);
 					if (data.message == "ok") {
-						setStore({ vehicles: data.results })
+						getActions().getDetails('vehicles', data);
+						// setStore({ vehicles: data.results })
+					}
+				})
+			},
+			getItem: (type, id) => {
+				const url = getStore().apiUrl + type;
+				const request = getActions().apiCall(`${url}/${id}`);
+				request.then(data => {
+					if (data.message == "ok") {
+						setStore({ currentItem: data.results })
 					}
 				})
 			},
 			addFavorites: (index, category) => {
 				let store = getStore();
 				if (category == "character") {
-					store.favorites.push(store.characters[index])
+					store.favorites.push(store.people[index])
 				} else if (category == "planet") {
 					store.favorites.push(store.planets[index])
 				} else { store.favorites.push(store.vehicles[index]) }
 				setStore(store);
 			},
-			deleteFavorites:(index) =>{
+			deleteFavorites: (index) => {
 				let store = getStore();
-				let newFavorites = store.favorites.filter((item, idx) => idx !=index )
-				setStore({favorites: newFavorites})
+				let newFavorites = store.favorites.filter((item, idx) => idx != index)
+				setStore({ favorites: newFavorites })
 			},
-	
-
 			apiCall: (url) => {
-
 				return fetch(url).then(response => response.json());
 			},
 			// Use getActions to call a function within a fuction

@@ -11,7 +11,7 @@ function Home() {
 			<h1>Characters</h1>
 			<div className="row flex-nowrap navbar-nav-scroll ">
 			{
-				store.characters.map((character, index) => <div className="col"> <Card item={character} index={index} category="character" addFavorites={actions.addFavorites}/> </div>)
+				store.people.map((character, index) => <div className="col"> <Card item={character} index={index} category="people" addFavorites={actions.addFavorites}/> </div>)
 			}
 			</div>
 			<h1>Planets</h1>
