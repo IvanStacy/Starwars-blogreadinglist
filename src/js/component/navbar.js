@@ -12,15 +12,17 @@ export const Navbar = () => {
         </Link>
         <div className="ml-auto">
           <div className="dropdown">
-            <button
+            <div
+
               className="btn btn-primary dropdown-toggle"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Favorites
-            </button>
+              Favorites 
+              <p className="btn btn-secondary p-1 mb-0 ms-1">{store.favorites.length? store.favorites.length:0}</p>
+            </div>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               {store.favorites.map((item, index) => {
                 return (
