@@ -10,31 +10,47 @@ export const Details = (props) => {
   const index = params.index;
   let item = store[category][index];
 
+  let imageBaseUrl;
+  
+  switch(category) {
+    case "characters": 
+      imageBaseUrl = "https://raw.githubusercontent.com/tbone849/star-wars-guide/master/build/assets/img/characters/";
+      break;
+    case "planets":
+      imageBaseUrl = "https://raw.githubusercontent.com/tbone849/star-wars-guide/master/build/assets/img/planets/"
+      break;
+    default:
+      imageBaseUrl =  "https://raw.githubusercontent.com/tbone849/star-wars-guide/master/build/assets/img/vehicles/";
+      break;
+  }
+
+  const imgLink = `${imageBaseUrl}${parseInt(index) + 1}.jpg`;
+
   return (
     <div className="container">
       <div className="top d-flex">
         <div>
-        <img height={550} width={500} src={
-        category=="characters"?"https://raw.githubusercontent.com/tbone849/star-wars-guide/master/build/assets/img/characters/"+(index+1)+".jpg": 
+        {/* <img height={550} width={500} src={
+        category==="characters"?"https://raw.githubusercontent.com/tbone849/star-wars-guide/master/build/assets/img/characters/"+(index+1)+".jpg": 
         category=="planets"?"https://raw.githubusercontent.com/tbone849/star-wars-guide/master/build/assets/img/planets/"+(index+1)+".jpg":
         "https://raw.githubusercontent.com/tbone849/star-wars-guide/master/build/assets/img/vehicles/"+(index+1)+".jpg"
-      } /> 
-      
+      } />  */}
+
+      <img height={500} src={imgLink} />
         </div>
         <div>
-          <h3>{item.name}</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+          <h3 className="ps-3" >{item.name}</h3>
+          <p className="p-5 text-center">
+          Vi jobbet sammen i samme redaksjon, men skjærte oss ikke direkte og kommuniserte bare av og til.
+          Jeg skrev nyhetene, og Misha og gutta hans valgte ut illustrasjoner for dem.
+          Jeg ble venn med ham på Facebook da han arrangerte en videosending fra et firmaarrangement, 
+          så jeg og andre eksterne ansatte deltok også i det. To uker senere tok han ferie og fløy til meg. 
+          Det var 12. juni 2016, den dagen Misha fridde til meg. Han sa: "Jeg har allerede levd et langt liv,
+          jeg har sett og opplevd mye, nå vil jeg vie meg til å gjøre deg lykkelig." Og han begynte å gjøre meg glad hver dag.
           </p>
         </div>
       </div>
-      <div className="bottom row border-top-0">
+      <div className="bottom row border-top-0 mt-5">
         <div className="col">
           <h7><strong>Name</strong></h7>
           <br></br>
