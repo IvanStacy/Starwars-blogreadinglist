@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const Card = (props) => {
   let item = props.item;
   let imageBaseUrl;
-  let fallbackImgLink;
+  let fallbackImgLink; //actual fallback image URL
 
   switch (props.category) {
     case "characters":
@@ -29,7 +29,6 @@ export const Card = (props) => {
     event.target.src = fallbackImgLink;
   };
 
-
   return (
     <div className="card" style={{ width: "17rem" }}>
       <img
@@ -43,20 +42,20 @@ export const Card = (props) => {
       } className="card-img-top" alt="..." /> */}
       <div className="card-body">
         <h5 className="card-title ">{item.name}</h5>
-        <p className="card-text">
+        <p className="card-text fst-italic">
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </p>
       </div>
       <div className="navbar px-2">
         <Link to={"/" + props.category + "/detail/" + props.index}>
-          <a className="btn btn-primary">Learn More!</a>
+          <a className="btn btn-outline-secondary">Learn More!</a>
         </Link>
         <button
           className="btn btn-outline-warning"
           onClick={() => props.addFavorites(props.index, props.category)}
         >
-          <i class="fa-solid fa-star"></i>
+          <i className="fa-solid fa-star"></i>
         </button>
       </div>
     </div>

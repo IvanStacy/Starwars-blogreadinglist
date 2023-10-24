@@ -6,9 +6,11 @@ export const Navbar = () => {
   const { store, actions } = useContext(Context);
   return (
     <div className="container">
-      <nav className="navbar navbar-light bg-light mb-3">
+      <nav className="navbar navbar-dark bg-back mb-3">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">StarWars</span>
+          <span className="navbar-brand mb-0 h1">
+            <img width={120} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2560px-Star_Wars_Logo.svg.png"g/>
+          </span>
         </Link>
         <div className="ml-auto">
           <div className="dropdown">
